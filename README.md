@@ -50,13 +50,3 @@ README.md     # Project documentation
 Here’s what the app looks like:
 
 ![App Screenshot](doc/michael%20slot.png)
-
----
-
-## 🔧 Notes
-- LVGL is tracked as a submodule, so collaborators must initialize it after cloning.
-- You can pin LVGL to a specific release tag for stability:
-  cd lvgl  
-  git checkout v9.0.0  
-  cd ..  
-  git commit -am "Pin LVGL to v9.0.0"
