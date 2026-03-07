@@ -49,4 +49,4 @@ README.md     # Project documentation
 ## 🖼️ Screenshot
 Here’s what the app looks like:
 
-![App Screenshot](doc/michael%20slot.png)
+![App Screenshot](doc/michael%20slop.png)
