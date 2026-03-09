@@ -6,16 +6,24 @@ LDFLAGS = -lSDL2 -lm
 # Find all LVGL source files automatically
 LVGL_SOURCES = $(shell find lvgl/src -name "*.c")
 # Add your main file
-SOURCES = main.c $(LVGL_SOURCES)
+SOURCES = main.c
 # Convert .c names to .o names in a 'build' folder
-OBJECTS = $(patsubst %.c, build/%.o, $(SOURCES))
+LVGL_OBJECTS = $(patsubst %.c, build/%.o, $(LVGL_SOURCES))
+APP_OBJECTS = $(patsubst %.c, build/%.o, $(SOURCES))
 
 TARGET = my_app
+LIBLVGL = build/liblvgl.a
 
-all: $(TARGET)
+all: $(LIBLVGL) $(TARGET)
 
-$(TARGET): $(OBJECTS)
-	$(CC) -o $@ $^ $(LDFLAGS)
+# Build the application by linking with liblvgl.a
+$(TARGET): $(APP_OBJECTS) $(LIBLVGL)
+	$(CC) -o $@ $(APP_OBJECTS) $(LIBLVGL) $(LDFLAGS)
+
+# Create the static library
+$(LIBLVGL): $(LVGL_OBJECTS)
+	@mkdir -p $(dir $@)
+	ar rcs $@ $^
 
 # Rule to compile every .c file into a .o file
 build/%.o: %.c
@@ -24,4 +32,3 @@ build/%.o: %.c
 
 clean:
 	rm -rf build $(TARGET)
-
